@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Menu implements Propuesta {
     private final String nombre;
-    private final Double porcentajeDescuento;
+    private Double porcentajeDescuento;
     private final List<Propuesta> componentes;
 
     public Menu(String nombre, Double porcentajeDescuento) {
@@ -46,5 +46,18 @@ public class Menu implements Propuesta {
     public Boolean incluyeServicio(String nombreServicio) {
         return componentes.stream()
                 .anyMatch(p -> p.incluyeServicio(nombreServicio));
+    }
+
+
+
+    public void setDescuento(Double nuevoDescuento) {
+        if (nuevoDescuento < 0 || nuevoDescuento > 100) {
+            throw new DescuentoInvalidoException("El descuento debe estar entre 0 y 100");
+        }
+        this.porcentajeDescuento = nuevoDescuento; 
+    }
+
+    public Double getDescuento() {
+        return this.porcentajeDescuento; 
     }
 }
